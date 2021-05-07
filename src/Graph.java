@@ -1,3 +1,8 @@
+/** Methods from the GraphInterface not made by us.
+ * Taken from slides - Module 12 - graphs
+ * Note: Our traversal methods are made by looking at the algorithm but trying to not
+ * look at the implementation in slides or books 
+ */
 public class Graph<E> implements GraphInterface<E>{     
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j     
     private E[] labels; // labels[i] contains the label for vertex i  
@@ -28,14 +33,14 @@ public class Graph<E> implements GraphInterface<E>{
         int count = 0;
         int[] answer;         
         for ( i = 0; i < labels.length; i++) {             
-            if (edges[vertex] [i]){
+            if (edges[vertex][i] == true){
                 count++;
             }         
         }         
         answer = new int[count];         
         count = 0;         
         for (i = 0; i < labels.length; i++) {             
-            if (edges[vertex][i]) {               
+            if (edges[vertex][i] == true) {               
                 answer[count++] = i;
             }         
         }         
@@ -55,6 +60,15 @@ public class Graph<E> implements GraphInterface<E>{
     // Accessor method to determine the number of vertices in this Graph     
     public int size() {
         return labels.length;     
+    }
+
+    /**
+     * 
+     */
+    public void getDepthFirstTraversal(int origin){
+        String traversalOrder = "";
+        ArrayStack<String> VertexStack = new ArrayStack<>();
+
     }
 }
     

@@ -13,10 +13,6 @@ public class testGraph{
         test.addEdge(0, 3);
         test.addEdge(0, 4);
         test.addEdge(0, 2);
-        test.addEdge(0, 5);
-        test.addEdge(0, 6);
-        test.addEdge(0, 7);
-        test.addEdge(0, 8);
         test.addEdge(1, 4);
         test.addEdge(2, 1);
         test.addEdge(3, 6);

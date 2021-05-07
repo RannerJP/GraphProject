@@ -57,17 +57,28 @@ public class Graph<E> implements GraphInterface<E>{
         return labels.length;     
     }
 
-    public void getBreadthFirstTraversal(int origin){
-        QueueInterface<int> traversalOrder = new Queue<>();
-        QueueInterface<int> vertexQueue = new Queue<int>();
-        traversalOrder.enqueue(originVertex);
-        vertexQueue.enqueue(originVertex);
+    public String getBreadthFirstTraversal(int origin){
+        boolean[] visited = new boolean[size()];
+        for(int x = 0; x< size(); x++)
+            visited[x] = false;
+        String traversalOrder = "";
+        Queue<E> vertexQueue = new Queue<>();
+        vertexQueue.enqueue(getLabel(origin));
         while(!vertexQueue.isEmpty()){
-            QueueInterface<> frontVertex = vertexQueue.dequeue();
-        while(neighbors.hasNext()){
-            QueueInterface<T> nextNeighbor = neighbors.next();
+            origin = (int) vertexQueue.dequeue(); 
+            int[] neighbors = neighbors(origin);
+            int i = 0;        
+            while(neighbors.length >= size()){ 
+                i++;
+                int nextNeighbor = neighbors[i];
+            if(!visited[nextNeighbor]){
+                visited[nextNeighbor] = true;
+                vertexQueue.enqueue(getLabel(nextNeighbor));
+                traversalOrder = String.valueOf(nextNeighbor);
+            }
         }
         }
+        return traversalOrder;
     }
-}
+    }
     

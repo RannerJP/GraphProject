@@ -70,48 +70,60 @@ public class Graph<E> implements GraphInterface<E>{
         ArrayStack<E> vertexStack = new ArrayStack<>();
         char[] visitedLabels = new char[size()];
         boolean markedNeighbor = true;
+        int labelsAdded = 0;
+        boolean foundNeighbor = false;
         traversalOrder = traversalOrder + getLabel(origin);
         vertexStack.push(getLabel(origin));
-        visitedLabels[0] = (char) getLabel(origin);
+        visitedLabels[labelsAdded] = (char) getLabel(origin);
+        labelsAdded++;
         while(!vertexStack.isEmpty()){
             int topVertex = getIndex(vertexStack.peek());
-            int[] neighbors = neighbors(topVertex);
+            System.out.println(getLabel(topVertex));
+            int[] neighborsArray = neighbors(topVertex);
             int currentNeighbors = 0;
             E nextNeighbor = getLabel(0); //This is only done because we got errors otherwise
-            if(neighbors.length == 0){
+            if(neighborsArray.length < 1){
                 vertexStack.pop();
+                System.out.println("Popped due to no neighbors!");
             }
             else{
-                while(markedNeighbor == true || currentNeighbors < neighbors.length){
-                   boolean foundNeighbor = false;
-                   while(currentNeighbors < neighbors.length){
-                        for(int j = 0; j < visitedLabels.length - 1; j++){
-                            if(((char) getLabel(neighbors[currentNeighbors]) == visitedLabels[j])){
+                while(markedNeighbor == true && currentNeighbors < neighborsArray.length){
+                    while(currentNeighbors < neighborsArray.length){
+                        for(int j = 0; j < visitedLabels.length; j++){
+                            foundNeighbor = false;
+                            System.out.println(((char) getLabel(neighborsArray[currentNeighbors]) + " " + visitedLabels[j]));
+                            if(((char) getLabel(neighborsArray[currentNeighbors]) == visitedLabels[j])){
+                                System.out.println(getLabel(neighborsArray[currentNeighbors]));
                                 foundNeighbor = true;
+                                System.out.println("Neighbor was already marked!");
+                                j = j + 1000;
                             }
                         }
+                        System.out.println(foundNeighbor);
                         if(foundNeighbor == false){
-                            nextNeighbor = getLabel(neighbors[currentNeighbors]);
+                            nextNeighbor = getLabel(neighborsArray[currentNeighbors]);
                             markedNeighbor = false;
+                            System.out.println("This neighbor has not been marked!" + nextNeighbor);
                         }
+                        currentNeighbors++;
                     }
                 }
-                if(markedNeighbor = false){
-                    int i = 0;
-                    while(i < visitedLabels.length){
-                        if(visitedLabels[i] == ' '){
-                            visitedLabels[i] = (char) nextNeighbor;
-                            i = i + 10000;
-                        }
-                    }
+                if(markedNeighbor == false){
+                    visitedLabels[labelsAdded] = (char) nextNeighbor;
+                    labelsAdded++;
                     traversalOrder = traversalOrder + (char) nextNeighbor;
                     vertexStack.push(nextNeighbor);
+                    System.out.println("Added the visited neighbor!");
+                    markedNeighbor = true;
                 }
                 else{
                     vertexStack.pop();
+                    markedNeighbor = true;
+                    System.out.println("Popped due to no unmarked neighbors!");
                 }
             } 
         }
+        System.out.println("Done!");
         return traversalOrder;
     }
     private int getIndex(E item){
@@ -123,6 +135,7 @@ public class Graph<E> implements GraphInterface<E>{
                 index = counter;
                 found = true;
             }
+            counter++;
         }
         return index;
     }

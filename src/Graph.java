@@ -65,10 +65,66 @@ public class Graph<E> implements GraphInterface<E>{
     /**
      * 
      */
-    public void getDepthFirstTraversal(int origin){
+    public String getDepthFirstTraversal(int origin){
         String traversalOrder = "";
-        ArrayStack<String> VertexStack = new ArrayStack<>();
-
+        ArrayStack<E> vertexStack = new ArrayStack<>();
+        char[] visitedLabels = new char[size()];
+        boolean markedNeighbor = true;
+        traversalOrder = traversalOrder + getLabel(origin);
+        vertexStack.push(getLabel(origin));
+        visitedLabels[0] = (char) getLabel(origin);
+        while(!vertexStack.isEmpty()){
+            int topVertex = getIndex(vertexStack.peek());
+            int[] neighbors = neighbors(topVertex);
+            int currentNeighbors = 0;
+            E nextNeighbor = getLabel(0); //This is only done because we got errors otherwise
+            if(neighbors.length == 0){
+                vertexStack.pop();
+            }
+            else{
+                while(markedNeighbor == true || currentNeighbors < neighbors.length){
+                   boolean foundNeighbor = false;
+                   while(currentNeighbors < neighbors.length){
+                        for(int j = 0; j < visitedLabels.length - 1; j++){
+                            if(((char) getLabel(neighbors[currentNeighbors]) == visitedLabels[j])){
+                                foundNeighbor = true;
+                            }
+                        }
+                        if(foundNeighbor == false){
+                            nextNeighbor = getLabel(neighbors[currentNeighbors]);
+                            markedNeighbor = false;
+                        }
+                    }
+                }
+                if(markedNeighbor = false){
+                    int i = 0;
+                    while(i < visitedLabels.length){
+                        if(visitedLabels[i] == ' '){
+                            visitedLabels[i] = (char) nextNeighbor;
+                            i = i + 10000;
+                        }
+                    }
+                    traversalOrder = traversalOrder + (char) nextNeighbor;
+                    vertexStack.push(nextNeighbor);
+                }
+                else{
+                    vertexStack.pop();
+                }
+            } 
+        }
+        return traversalOrder;
+    }
+    private int getIndex(E item){
+        int index = -1;
+        int counter = 0;
+        boolean found = false;
+        while(found != true && counter < size()){
+            if(labels[counter] == item){
+                index = counter;
+                found = true;
+            }
+        }
+        return index;
     }
 }
     

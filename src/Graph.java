@@ -56,5 +56,18 @@ public class Graph<E> implements GraphInterface<E>{
     public int size() {
         return labels.length;     
     }
+
+    public void getBreadthFirstTraversal(int origin){
+        QueueInterface<int> traversalOrder = new Queue<>();
+        QueueInterface<int> vertexQueue = new Queue<int>();
+        traversalOrder.enqueue(originVertex);
+        vertexQueue.enqueue(originVertex);
+        while(!vertexQueue.isEmpty()){
+            QueueInterface<> frontVertex = vertexQueue.dequeue();
+        while(neighbors.hasNext()){
+            QueueInterface<T> nextNeighbor = neighbors.next();
+        }
+        }
+    }
 }
     

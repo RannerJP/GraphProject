@@ -78,32 +78,25 @@ public class Graph<E> implements GraphInterface<E>{
         labelsAdded++;
         while(!vertexStack.isEmpty()){
             int topVertex = getIndex(vertexStack.peek());
-            System.out.println(getLabel(topVertex));
             int[] neighborsArray = neighbors(topVertex);
             int currentNeighbors = 0;
             E nextNeighbor = getLabel(0); //This is only done because we got errors otherwise
             if(neighborsArray.length < 1){
                 vertexStack.pop();
-                System.out.println("Popped due to no neighbors!");
             }
             else{
                 while(markedNeighbor == true && currentNeighbors < neighborsArray.length){
                     while(currentNeighbors < neighborsArray.length){
                         for(int j = 0; j < visitedLabels.length; j++){
                             foundNeighbor = false;
-                            System.out.println(((char) getLabel(neighborsArray[currentNeighbors]) + " " + visitedLabels[j]));
                             if(((char) getLabel(neighborsArray[currentNeighbors]) == visitedLabels[j])){
-                                System.out.println(getLabel(neighborsArray[currentNeighbors]));
                                 foundNeighbor = true;
-                                System.out.println("Neighbor was already marked!");
                                 j = j + 1000;
                             }
                         }
-                        System.out.println(foundNeighbor);
                         if(foundNeighbor == false){
                             nextNeighbor = getLabel(neighborsArray[currentNeighbors]);
                             markedNeighbor = false;
-                            System.out.println("This neighbor has not been marked!" + nextNeighbor);
                         }
                         currentNeighbors++;
                     }
@@ -113,17 +106,14 @@ public class Graph<E> implements GraphInterface<E>{
                     labelsAdded++;
                     traversalOrder = traversalOrder + (char) nextNeighbor;
                     vertexStack.push(nextNeighbor);
-                    System.out.println("Added the visited neighbor!");
                     markedNeighbor = true;
                 }
                 else{
                     vertexStack.pop();
                     markedNeighbor = true;
-                    System.out.println("Popped due to no unmarked neighbors!");
                 }
             } 
         }
-        System.out.println("Done!");
         return traversalOrder;
     }
     private int getIndex(E item){

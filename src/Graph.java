@@ -65,7 +65,7 @@ public class Graph<E> implements GraphInterface<E>{
         Queue<E> vertexQueue = new Queue<>();
         vertexQueue.enqueue(getLabel(origin));
         while(!vertexQueue.isEmpty()){
-            origin = (int) vertexQueue.dequeue(); 
+            vertexQueue.dequeue(); 
             int[] neighbors = neighbors(origin);
             int i = 0;        
             while(neighbors.length >= size()){ 

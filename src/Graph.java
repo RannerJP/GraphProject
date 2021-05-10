@@ -62,23 +62,38 @@ public class Graph<E> implements GraphInterface<E>{
         for(int x = 0; x< size(); x++)
             visited[x] = false;
         String traversalOrder = "";
+        traversalOrder = traversalOrder + getLabel(origin);
         Queue<E> vertexQueue = new Queue<>();
         vertexQueue.enqueue(getLabel(origin));
         while(!vertexQueue.isEmpty()){
-            vertexQueue.dequeue(); 
-            int[] neighbors = neighbors(origin);
+            int currentVertex = getIndex(vertexQueue.dequeue()); 
+            int[] neighbors = neighbors(currentVertex);
             int i = 0;        
-            while(neighbors.length >= size()){ 
-                i++;
+            while(i <= neighbors.length -1){ 
                 int nextNeighbor = neighbors[i];
-            if(!visited[nextNeighbor]){
-                visited[nextNeighbor] = true;
-                vertexQueue.enqueue(getLabel(nextNeighbor));
-                traversalOrder = String.valueOf(nextNeighbor);
+                if(!visited[nextNeighbor]){
+                    visited[nextNeighbor] = true;
+                    vertexQueue.enqueue(getLabel(nextNeighbor));
+                    traversalOrder = traversalOrder + String.valueOf(getLabel(nextNeighbor));
+                }
+                i++;
             }
         }
-        }
         return traversalOrder;
+    }
+
+    private int getIndex(E item){
+        int index = -1;
+        int counter = 0;
+        boolean found = false;
+        while(found != true && counter < size()){
+            if(labels[counter] == item){
+                index = counter;
+                found = true;
+            }
+            counter++;
+        }
+        return index;
     }
     }
     

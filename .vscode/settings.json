@@ -1,5 +1,9 @@
 {
-    "java.project.sourcePaths": [
+      "java.project.sourcePaths": [
         "src"
-    ]
+    ],
+
+    "java.test.config": {
+        "workingDirectory": "${workspaceFolder}"
+    }
 }

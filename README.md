@@ -40,9 +40,12 @@ Project Link: [https://github.com/RannerJP/GraphProject](https://github.com/Rann
 ## Acknowledgements
 
 * Source Code Information
+  For Stack and Queue:
   @author Frank M. Carrano
   @author Timothy M. Henry
   @version 5.0
+  
+  Matrix Graph from Class Slides
 * Generics and Java Interface used
 * Unit Testing
 * USING MATRIX IMPLEMENTATION

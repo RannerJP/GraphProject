@@ -1,9 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /** Methods from the GraphInterface not made by us.
  * Taken from slides - Module 12 - graphs
  * Note: Our traversal methods are made by looking at the algorithm but trying to not
  * look at the implementation in slides or books 
  */
-public class Graph<E> implements GraphInterface<E>{     
+public class Graph<E> implements GraphInterface<E>, GraphRepresentationInterface{     
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j     
     private E[] labels; // labels[i] contains the label for vertex i  
      
@@ -146,7 +150,51 @@ public class Graph<E> implements GraphInterface<E>{
         }
         return traversalOrder;
     }
-  
+    
+    /** This function will take a graph from a CSV file and implement it.
+     * NOTES: File Must be CSV and only include True/False
+     * DO NOT INCLUDE THE LABEL NAMES 
+     * An example has been included in the GitHub in csv and excel format
+     * @param fileName is the name of the file trying to be read
+    */
+    public void importGraph(String fileName) throws FileNotFoundException{
+        File inputFile = new File(fileName);
+        if(!inputFile.exists()){
+            throw new FileNotFoundException();
+        }
+        Scanner fileReader = new Scanner(inputFile);
+        String fileData = "";
+        String[][] matrixData = new String[size()][size()];
+        int line = 0;
+        while(fileReader.hasNextLine()){
+            fileData = fileReader.nextLine();
+            String[] currentLineValues = fileData.split(",");
+            for(int i = 0; i < currentLineValues.length; i++){
+                matrixData[line][i] = currentLineValues[i];
+            }
+            line++;
+        }
+        fileReader.close();
+        for(int i = 0; i < size(); i++){
+            for(int j = 0; j < size(); j++){
+                String value = matrixData[i][j];
+                if(value.length() == 4){
+                    addEdge(i, j);
+                }
+            }
+        }
+    }
+    
+    /** Will auto set labels with 0=a, 1=b etc, for the declared size of the graph 
+     * NOTE: ONLY WORKS WITH GRAPHS SMALLER THAN 27!!
+    */
+    public void autoSetLabels(){
+        Character[] alphabet = new Character[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        for(int i = 0; i < size(); i++){
+            setLabel(i, (E) alphabet[i]);
+        }
+    }
+
     /** Gets the index of an item given the label of the item
     * @param item is the generic label
     * @return the index of the given label item

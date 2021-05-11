@@ -23,6 +23,7 @@
 * Queue
 * QueueInterface
 * StackInterface
+* GraphRepresentationInterface
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -43,6 +44,8 @@ Project Link: [https://github.com/RannerJP/GraphProject](https://github.com/Rann
   @author Timothy M. Henry
   @version 5.0
 * Generics and Java Interface used
+* Unit Testing
+* USING MATRIX IMPLEMENTATION
 * Graph representation is from the proj5-f18.docx
 * MAKE SURE TO READ COMMENTS OR JAVADOC FOR SETUP
 * Not sure if our settings.json need to be used in order to work. 

@@ -44,4 +44,5 @@ Project Link: [https://github.com/RannerJP/GraphProject](https://github.com/Rann
   @version 5.0
 * Generics and Java Interface used
 * Graph representation is from the proj5-f18.docx
+* MAKE SURE TO READ COMMENTS OR JAVADOC FOR SETUP
 * Not sure if our settings.json need to be used in order to work. 

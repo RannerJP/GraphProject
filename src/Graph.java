@@ -61,10 +61,40 @@ public class Graph<E> implements GraphInterface<E>{
     public int size() {
         return labels.length;     
     }
+  
+    /** Goes through the graph using Breath Traversal
+    * @param origin is the poisition of the starting label's array value
+    * @return traversalOrder, the order the vertexes were visited
+    */
+    public String getBreadthFirstTraversal(int origin){
+        boolean[] visited = new boolean[size()];
+        for(int x = 0; x< size(); x++)
+            visited[x] = false;
+        String traversalOrder = "";
+        traversalOrder = traversalOrder + getLabel(origin);
+        Queue<E> vertexQueue = new Queue<>();
+        vertexQueue.enqueue(getLabel(origin));
+        while(!vertexQueue.isEmpty()){
+            int currentVertex = getIndex(vertexQueue.dequeue()); 
+            int[] neighbors = neighbors(currentVertex);
+            int i = 0;        
+            while(i <= neighbors.length -1){ 
+                int nextNeighbor = neighbors[i];
+                if(!visited[nextNeighbor]){
+                    visited[nextNeighbor] = true;
+                    vertexQueue.enqueue(getLabel(nextNeighbor));
+                    traversalOrder = traversalOrder + String.valueOf(getLabel(nextNeighbor));
+                }
+                i++;
+            }
+        }
+        return traversalOrder;
+    }
 
-    /**
-     * 
-     */
+    /** Goes through the graph using Depth Traversal
+    * @param origin is the poisition of the starting label's array value
+    * @return traversalOrder, the order the vertexes were visited
+    */
     public String getDepthFirstTraversal(int origin){
         String traversalOrder = "";
         ArrayStack<E> vertexStack = new ArrayStack<>();
@@ -116,6 +146,11 @@ public class Graph<E> implements GraphInterface<E>{
         }
         return traversalOrder;
     }
+  
+    /** Gets the index of an item given the label of the item
+    * @param item is the generic label
+    * @return the index of the given label item
+    */
     private int getIndex(E item){
         int index = -1;
         int counter = 0;
